@@ -4,7 +4,6 @@
 
 template<typename T, int size>
 class TStack {
-
 private:
     T arr[size];
     int top;
@@ -28,4 +27,5 @@ public:
             arr[++top] = item;
     }
 };
-#endif INCLUDE_TSTACK_H_
+
+#endif  // INCLUDE_TSTACK_H_
