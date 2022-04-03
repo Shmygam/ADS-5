@@ -1,36 +1,7 @@
-#include <iostream>
+// Copyright 2021 NNTU-CS
 #include <string>
 #include <map>
 #include "tstack.h"
-
-int priority(char symbol) {
-    switch (symbol) {
-    case '(': {
-        return 0;
-    }
-    case ')': {
-        return 1;
-    }
-    case '+': {
-        return 2;
-    }
-    case '-': {
-        return 2;
-    }
-    case '*': {
-        return 3;
-    }
-    case '/': {
-        return 3;
-    }
-    default: {
-        return 4;
-    }
-    case ' ': {
-        return 5;
-    }
-    }
-}
 
 std::string infx2pstfx(std::string inf) {
     TStack<char, 100> stack1;
@@ -55,7 +26,7 @@ std::string infx2pstfx(std::string inf) {
                 }
                 stack1.pop();
             } else if (priority(inf[i]) <= priority(stack1.get())) {
-                while ((!(stack1.isEmpty())) and (priority(stack1.get()) > 1)) {
+                while ((!(stack1.isEmpty())) && (priority(stack1.get()) > 1)) {
                     output += (stack1.get());
                     output += (' ');
                     stack1.pop();
@@ -79,24 +50,24 @@ int eval(std::string pref) {
     TStack<int, 100> stack2;
     for (int i = 0; i < pref.length(); i++) {
         std::string out2 = "";
-        while ((priority(pref[i]) == 4) and (i < pref.length())) {
+        while ((priority(pref[i]) == 4) && (i < pref.length())) {
             out2 += pref[i];
             i++;
         }
-        if ((priority(pref[i]) == 2) or (priority(pref[i]) == 3)) {
+        if ((priority(pref[i]) == 2) || (priority(pref[i]) == 3)) {
             int op1 = stack2.get(); stack2.pop();
             int op2 = stack2.get(); stack2.pop();
             if (pref[i] == '+') {
-                stack2.push((op1 + op2));
+                stack2.push(op1 + op2);
             }
             if (pref[i] == '-') {
-                stack2.push((op2 - op1));
+                stack2.push(op2 - op1);
             }
             if (pref[i] == '*') {
-                stack2.push((op1 * op2));
+                stack2.push(op1 * op2);
             }
             if (pref[i] == '/') {
-                stack2.push((op2 / op1));
+                stack2.push(op2 / op1);
             }
         }
         if (out2 != "") {
